@@ -1,11 +1,14 @@
 package com.luxoft.j8airport.flights;
 
 import com.luxoft.j8airport.clients.Client;
+import com.luxoft.j8airport.clients.ClientService;
 import com.luxoft.j8airport.clients.Status;
 import com.luxoft.j8airport.flights.domain.Airport;
 import com.luxoft.j8airport.flights.domain.Flight;
 import com.luxoft.j8airport.flights.domain.FlightCard;
+import com.luxoft.j8airport.tickets.Ticket;
 import com.luxoft.j8airport.tickets.TicketRepository;
+import com.luxoft.j8airport.tickets.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +21,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+/**
+ *
+ * TODO: check all objects work with DB
+ * TODO: test buy ticket
+ * TODO: generate data for service methods to work
+ * TODO: create tests to check the code and tasks
+ *
+ */
 @Service
 public class FlightServiceImpl implements FlightService
 {
@@ -28,10 +38,17 @@ public class FlightServiceImpl implements FlightService
 
     private Map<Long, Flight> waitingForClients = new ConcurrentHashMap<>(10);
 
-    private static final AtomicLong gen = new AtomicLong(0);
-
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Autowired
+    private FlightRepository flightRepository;
+
+    @Autowired
+    private TicketService ticketService;
+
+    @Autowired
+    private ClientService clientService;
 
     @Override
     public void setUpFlight(FlightCard card)
@@ -40,6 +57,29 @@ public class FlightServiceImpl implements FlightService
                 .supplyAsync(() -> new Flight(card))
                 .thenAccept(this::setupFlight);
 
+    }
+
+    @Override
+    public Flight findById(Long flightId)
+    {
+        return waitingForClients.get(flightId);
+    }
+
+    @Override
+    public Ticket buyTicket(Long clientId, Long flightId)
+    {
+
+        Client client = clientService.findById(clientId);
+        Flight flight = findById(flightId);
+
+
+        Ticket ticket = ticketService.createTicket(client, flight);
+
+        flight.addTicket(ticket);
+
+        flightRepository.save(flight);
+
+        return ticket;
     }
 
     @Override
@@ -91,8 +131,6 @@ public class FlightServiceImpl implements FlightService
 
     private void setupFlight(Flight flight)
     {
-        flight.setId(gen.incrementAndGet());
-
         ZonedDateTime departure = ZonedDateTime
                 .now(ZoneId.of(flight.getFlightCard().getFrom().getZoneId()))
                 .withHour(14)
@@ -109,7 +147,10 @@ public class FlightServiceImpl implements FlightService
         flight.setArrive(arrive);
 
         flight.startBoarding();
-        waitingForClients.put(flight.getId(), flight);
+
+        Flight stored = flightRepository.save(flight);
+
+        waitingForClients.put(stored.getId(), stored);
     }
 
     @Override

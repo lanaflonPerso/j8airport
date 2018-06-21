@@ -37,6 +37,11 @@ public class Flight
         this.ticketsBought = new ArrayList<>(this.flightCard.getMaxPassengers());
     }
 
+    public void addTicket(Ticket ticket)
+    {
+        ticketsBought.add(ticket);
+    }
+
     public Flight startBoarding()
     {
         state = State.BOARDING;

@@ -1,6 +1,10 @@
 package com.luxoft.j8airport.flights;
 
+import com.luxoft.j8airport.clients.Client;
+import com.luxoft.j8airport.clients.ClientService;
 import com.luxoft.j8airport.flights.domain.Flight;
+import com.luxoft.j8airport.tickets.Ticket;
+import com.luxoft.j8airport.tickets.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,9 @@ public class FlightsController
     @Autowired
     private FlightService flightService;
 
+    @Autowired
+    private ClientService clientService;
+
     @GetMapping
     public List<Flight> getAllAvailableFlights(String city)
     {
@@ -26,5 +33,11 @@ public class FlightsController
         }
 
         return flightService.getAllAvailableFlights();
+    }
+
+    @GetMapping
+    public Ticket buyTicket(Long clientId, Long flightId)
+    {
+        return flightService.buyTicket(clientId, flightId);
     }
 }

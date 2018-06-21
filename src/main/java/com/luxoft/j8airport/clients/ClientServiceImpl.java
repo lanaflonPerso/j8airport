@@ -18,6 +18,18 @@ public class ClientServiceImpl implements ClientService
     private ClientRepository clientRepository;
 
     @Override
+    public List<Client> findAll()
+    {
+        return clientRepository.findAll();
+    }
+
+    @Override
+    public Client findById(Long clientId)
+    {
+        return clientRepository.findById(clientId).get();
+    }
+
+    @Override
     public Map<Status, Set<Client>> getAllClientsGroupByStatus()
     {
         return clientRepository.findAll()

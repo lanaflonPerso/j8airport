@@ -12,11 +12,11 @@ import java.util.List;
 public class ClientController
 {
     @Autowired
-    private ClientRepository repository;
+    private ClientService clientService;
 
     @GetMapping
-    List<Client> getAll()
+    List<Client> findAll()
     {
-        return repository.findAll();
+        return clientService.findAll();
     }
 }

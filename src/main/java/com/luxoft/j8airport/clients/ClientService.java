@@ -1,10 +1,15 @@
 package com.luxoft.j8airport.clients;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public interface ClientService
 {
+
+    List<Client> findAll();
+
+    Client findById(Long clientId);
 
     /**
      *
