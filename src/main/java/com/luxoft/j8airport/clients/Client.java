@@ -31,6 +31,7 @@ public class Client
 
     public Client()
     {
+        status = Status.NONE;
     }
 
     public long getId()
@@ -107,5 +108,17 @@ public class Client
     public int hashCode()
     {
         return Objects.hash(id, name, age, gender);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", status=" + status +
+                '}';
     }
 }

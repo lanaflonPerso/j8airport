@@ -14,6 +14,12 @@ public class ClientSupportService
         repository.save(generateClient("Oleg", 34, Client.Gender.MALE));
     }
 
+    public Client generateAndStoreClient(String name, int age, Client.Gender gender)
+    {
+        return repository.save(generateClient(name, age, gender));
+    }
+
+
     private Client generateClient(String name, int age, Client.Gender gender)
     {
         Client c = new Client();

@@ -8,6 +8,7 @@ import com.luxoft.j8airport.tickets.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class FlightsController
         return flightService.getAllAvailableFlights();
     }
 
-    @GetMapping
-    public Ticket buyTicket(Long clientId, Long flightId)
+    @GetMapping("buyTicket")
+    public Ticket buyTicket(@RequestParam Long clientId, @RequestParam Long flightId)
     {
         return flightService.buyTicket(clientId, flightId);
     }
