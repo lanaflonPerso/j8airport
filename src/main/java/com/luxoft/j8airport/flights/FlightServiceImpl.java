@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -54,13 +53,8 @@ public class FlightServiceImpl implements FlightService
     @Override
     public void setUpFlight(FlightCard card)
     {
-//        CompletableFuture
-//                .supplyAsync(() -> new Flight(card))
-//                .thenAccept(this::setUpFlight);
-
         Flight flight = new Flight(card);
         setUpFlight(flight);
-
     }
 
     @Override
@@ -117,20 +111,27 @@ public class FlightServiceImpl implements FlightService
     {
         return waitingForClients.values()
                 .stream()
-                .filter(flight -> flight.getFlightCard().getTo().equals(city))
+                .filter(flight -> flight.getFlightCard().getTo().getCity().equals(city))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Flight> getAvailableFlightsFrom(String city)
     {
-        return null;
+        return waitingForClients.values()
+                .stream()
+                .filter(flight -> flight.getFlightCard().getFrom().getCity().equals(city))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Flight> getAvailableFlights(String from, String to)
     {
-        return null;
+        return waitingForClients.values()
+                .stream()
+                .filter(flight -> flight.getFlightCard().getFrom().getCity().equals(from))
+                .filter(flight -> flight.getFlightCard().getTo().getCity().equals(to))
+                .collect(Collectors.toList());
     }
 
     private void setUpFlight(Flight flight)
@@ -208,8 +209,8 @@ public class FlightServiceImpl implements FlightService
         kl.setMaxPassengers(189);
 
         FlightCard lk = new FlightCard();
-        lk.setFrom(kiev);
-        lk.setTo(london);
+        lk.setFrom(london);
+        lk.setTo(kiev);
         lk.setFlightTime(Duration.ofMinutes(195));
         lk.setDistance(2400);
         lk.setMaxPassengers(189);
