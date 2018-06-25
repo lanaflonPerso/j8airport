@@ -15,7 +15,7 @@ public class Flight
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private FlightCard flightCard;
 
     @Column

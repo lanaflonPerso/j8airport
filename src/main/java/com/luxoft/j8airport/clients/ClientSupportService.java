@@ -3,6 +3,7 @@ package com.luxoft.j8airport.clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class ClientSupportService
     public void generateAndStoreClients()
     {
         repository.save(generateClient("Oleg", 34, Client.Gender.MALE));
+    }
+
+    @Transactional
+    public void deleteAllGeneratedClients()
+    {
+        repository.deleteAllByNameStartsWith(DEFAULT_CLIENT_NAME_PREFIX);
     }
 
     public List<Client> generateAndStoreClients(Status status, int count)
@@ -42,7 +49,6 @@ public class ClientSupportService
     {
         return repository.save(generateClient(name, age, gender));
     }
-
 
     private Client generateClient(String name, int age, Client.Gender gender)
     {

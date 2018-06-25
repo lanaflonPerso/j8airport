@@ -6,6 +6,8 @@ import com.luxoft.j8airport.clients.ClientSupportService;
 import com.luxoft.j8airport.clients.Status;
 import com.luxoft.j8airport.flights.domain.Flight;
 import com.luxoft.j8airport.tickets.Ticket;
+import com.luxoft.j8airport.tickets.TicketRepository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,12 +22,6 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-
-/**
- *
- * TODO: move client creation to @Before and @After
- * TODO: finish getPassengersGroupedByStatus tests
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FlightsServiceTests
@@ -40,6 +36,49 @@ public class FlightsServiceTests
     @Autowired
     private ClientSupportService clientSupportService;
 
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    private Flight flight;
+
+    @Before
+    public void setupFlight()
+    {
+        System.out.println("setupFlight --> ");
+
+        Long flightId = flightService.getAllAvailableFlights().get(1).getId();
+
+        List<Client> platinumClients = clientSupportService.generateAndStoreClients(Status.PLATINUM, 1);
+        List<Client> goldClients = clientSupportService.generateAndStoreClients(Status.GOLD, 3);
+        List<Client> silverClients = clientSupportService.generateAndStoreClients(Status.SILVER, 2);
+        List<Client> noneClients = clientSupportService.generateAndStoreClients(Status.NONE, 6);
+
+        List<Client> clients = new ArrayList<>();
+
+        clients.addAll(platinumClients);
+        clients.addAll(goldClients);
+        clients.addAll(silverClients);
+        clients.addAll(noneClients);
+
+        for (Client client : clients)
+        {
+            flightService.buyTicket(client.getId(), flightId);
+        }
+
+        flight = flightService.findById(flightId);
+    }
+
+    @After
+    public void cleanDB()
+    {
+
+        ticketRepository.deleteAll();
+
+        clientSupportService.deleteAllGeneratedClients();
+
+        flight.setTicketsBought(new ArrayList<>());
+    }
+
     @Test
     public void flightsShouldBeGeneratedTest()
     {
@@ -52,7 +91,6 @@ public class FlightsServiceTests
     public void buyTicketTest1()
     {
         Client client = clientService.findAll().get(0);
-        Flight flight = flightService.getAllAvailableFlights().get(0);
 
         Ticket ticket = flightService.buyTicket(client.getId(), flight.getId());
 
@@ -63,7 +101,6 @@ public class FlightsServiceTests
     public void buyTicketTest2()
     {
         Client client = clientService.findAll().get(0);
-        Flight flight = flightService.getAllAvailableFlights().get(0);
 
         Ticket ticket = flightService.buyTicket(client.getId(), flight.getId());
 
@@ -114,8 +151,6 @@ public class FlightsServiceTests
     @Test
     public void getPassengersWithTest1()
     {
-        Flight flight = flightService.getAllAvailableFlights().get(1);
-
         List<Client> passengers = flightService.getPassengersWith(flight, Status.PLATINUM);
 
         int expectedPlatinumPassengersCount = 1;
@@ -127,8 +162,6 @@ public class FlightsServiceTests
     @Test
     public void getPassengersWithTest2()
     {
-        Flight flight = flightService.getAllAvailableFlights().get(1);
-
         List<Client> passengers = flightService.getPassengersWith(flight, Status.GOLD);
 
         int expectedGoldPassengersCount = 3;
@@ -140,8 +173,6 @@ public class FlightsServiceTests
     @Test
     public void getPassengersWithTest3()
     {
-        Flight flight = flightService.getAllAvailableFlights().get(1);
-
         List<Client> passengers = flightService.getPassengersWith(flight, Status.SILVER);
 
         int expectedSilverPassengersCount = 2;
@@ -153,8 +184,6 @@ public class FlightsServiceTests
     @Test
     public void getPassengersWithTest4()
     {
-        Flight flight = flightService.getAllAvailableFlights().get(1);
-
         List<Client> passengers = flightService.getPassengersWith(flight, Status.NONE);
 
         int expectedNoneStatusPassengersCount = 6;
@@ -164,16 +193,47 @@ public class FlightsServiceTests
     }
 
     @Test
-    public void getPassengersGroupedByStatusTest()
+    public void getPassengersGroupedByStatusTest1()
     {
-        Flight flight = flightService.getAllAvailableFlights().get(1);
-
         Map<Status, Set<Client>> passengersByStatus = flightService.getPassengersGroupedByStatus(flight);
 
         int expectedPlatinumPassengersCount = 1;
 
         assertEquals("should be " + expectedPlatinumPassengersCount + " PLATINUM passengers",
                 expectedPlatinumPassengersCount, passengersByStatus.get(Status.PLATINUM).size());
+    }
+
+    @Test
+    public void getPassengersGroupedByStatusTest2()
+    {
+        Map<Status, Set<Client>> passengersByStatus = flightService.getPassengersGroupedByStatus(flight);
+
+        int expectedGoldPassengersCount = 3;
+
+        assertEquals("should be " + expectedGoldPassengersCount + " GOLD passengers",
+                expectedGoldPassengersCount, passengersByStatus.get(Status.GOLD).size());
+    }
+
+    @Test
+    public void getPassengersGroupedByStatusTest3()
+    {
+        Map<Status, Set<Client>> passengersByStatus = flightService.getPassengersGroupedByStatus(flight);
+
+        int expectedSilverPassengersCount = 2;
+
+        assertEquals("should be " + expectedSilverPassengersCount + " SILVER passengers",
+                expectedSilverPassengersCount, passengersByStatus.get(Status.SILVER).size());
+    }
+
+    @Test
+    public void getPassengersGroupedByStatusTest4()
+    {
+        Map<Status, Set<Client>> passengersByStatus = flightService.getPassengersGroupedByStatus(flight);
+
+        int expectedNoneStatusPassengersCount = 6;
+
+        assertEquals("should be " + expectedNoneStatusPassengersCount + " NONE passengers",
+                expectedNoneStatusPassengersCount, passengersByStatus.get(Status.NONE).size());
     }
 
 }

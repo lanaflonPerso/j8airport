@@ -37,34 +37,7 @@ public class J8airportApplication
         {
             clientSupportService.generateAndStoreClients();
             flightService.loadFlights();
-
-            setupFlight(clientSupportService, flightService);
-
         };
-    }
-
-    public void setupFlight(ClientSupportService clientSupportService, FlightService flightService)
-    {
-        System.out.println("setupFlight --> ");
-
-        Long flightId = flightService.getAllAvailableFlights().get(1).getId();
-
-        List<Client> platinumClients = clientSupportService.generateAndStoreClients(Status.PLATINUM, 1);
-        List<Client> goldClients = clientSupportService.generateAndStoreClients(Status.GOLD, 3);
-        List<Client> silverClients = clientSupportService.generateAndStoreClients(Status.SILVER, 2);
-        List<Client> noneClients = clientSupportService.generateAndStoreClients(Status.NONE, 6);
-
-        List<Client> clients = new ArrayList<>();
-
-        clients.addAll(platinumClients);
-        clients.addAll(goldClients);
-        clients.addAll(silverClients);
-        clients.addAll(noneClients);
-
-        for (Client client : clients)
-        {
-            flightService.buyTicket(client.getId(), flightId);
-        }
     }
 
 }

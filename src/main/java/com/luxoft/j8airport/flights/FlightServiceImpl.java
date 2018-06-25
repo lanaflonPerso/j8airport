@@ -45,6 +45,9 @@ public class FlightServiceImpl implements FlightService
     private AirportRepository airportRepository;
 
     @Autowired
+    private FlightCardRepository flightCardRepository;
+
+    @Autowired
     private TicketService ticketService;
 
     @Autowired
@@ -193,12 +196,16 @@ public class FlightServiceImpl implements FlightService
         ka.setDistance(1900);
         ka.setMaxPassengers(189);
 
+        ka = flightCardRepository.save(ka);
+
         FlightCard ak = new FlightCard();
         ak.setFrom(amster);
         ak.setTo(kiev);
         ak.setFlightTime(Duration.ofMinutes(185));
         ak.setDistance(1900);
         ak.setMaxPassengers(189);
+
+        ak = flightCardRepository.save(ak);
 
 
         FlightCard kl = new FlightCard();
@@ -208,12 +215,16 @@ public class FlightServiceImpl implements FlightService
         kl.setDistance(2400);
         kl.setMaxPassengers(189);
 
+        kl = flightCardRepository.save(kl);
+
         FlightCard lk = new FlightCard();
         lk.setFrom(london);
         lk.setTo(kiev);
         lk.setFlightTime(Duration.ofMinutes(195));
         lk.setDistance(2400);
         lk.setMaxPassengers(189);
+
+        lk = flightCardRepository.save(lk);
 
         setUpFlight(ka);
         setUpFlight(ak);
