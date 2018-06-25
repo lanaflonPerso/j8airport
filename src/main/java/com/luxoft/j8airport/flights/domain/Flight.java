@@ -15,7 +15,7 @@ public class Flight
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private FlightCard flightCard;
 
     @Column
@@ -30,6 +30,8 @@ public class Flight
     @OneToMany
     @JoinColumn(name = "FK_FLIGHT_ID")
     private List<Ticket> ticketsBought;
+
+    public Flight() {}
 
     public Flight(FlightCard flightCard)
     {

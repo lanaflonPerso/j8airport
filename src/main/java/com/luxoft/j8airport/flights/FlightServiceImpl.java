@@ -25,8 +25,6 @@ import java.util.stream.Collectors;
 
 /**
  *
- * TODO: check all objects work with DB
- * TODO: test buy ticket
  * TODO: generate data for service methods to work
  * TODO: create tests to check the code and tasks
  *
@@ -45,6 +43,9 @@ public class FlightServiceImpl implements FlightService
     private FlightRepository flightRepository;
 
     @Autowired
+    private AirportRepository airportRepository;
+
+    @Autowired
     private TicketService ticketService;
 
     @Autowired
@@ -53,9 +54,12 @@ public class FlightServiceImpl implements FlightService
     @Override
     public void setUpFlight(FlightCard card)
     {
-        CompletableFuture
-                .supplyAsync(() -> new Flight(card))
-                .thenAccept(this::setupFlight);
+//        CompletableFuture
+//                .supplyAsync(() -> new Flight(card))
+//                .thenAccept(this::setUpFlight);
+
+        Flight flight = new Flight(card);
+        setUpFlight(flight);
 
     }
 
@@ -129,7 +133,7 @@ public class FlightServiceImpl implements FlightService
         return null;
     }
 
-    private void setupFlight(Flight flight)
+    private void setUpFlight(Flight flight)
     {
         ZonedDateTime departure = ZonedDateTime
                 .now(ZoneId.of(flight.getFlightCard().getFrom().getZoneId()))
@@ -157,25 +161,28 @@ public class FlightServiceImpl implements FlightService
     public void loadFlights()
     {
         Airport amster = new Airport();
-        amster.setId(0L);
         amster.setCountry("Netherlands");
         amster.setCity("Amsterdam");
         amster.setName("Schiphol");
         amster.setZoneId("Europe/Amsterdam");
 
+        amster = airportRepository.save(amster);
+
         Airport kiev = new Airport();
-        kiev.setId(1L);
         kiev.setCountry("Ukraine");
         kiev.setCity("Kiev");
         kiev.setName("Borispol");
         kiev.setZoneId("Europe/Kiev");
 
+        kiev = airportRepository.save(kiev);
+
         Airport london = new Airport();
-        london.setId(2L);
         london.setCountry("UK");
         london.setCity("London");
         london.setName("Heathrow");
         london.setZoneId("Europe/London");
+
+        london = airportRepository.save(london);
 
 
         FlightCard ka = new FlightCard();
