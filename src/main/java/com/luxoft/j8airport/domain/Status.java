@@ -1,4 +1,4 @@
-package com.luxoft.j8airport.clients;
+package com.luxoft.j8airport.domain;
 
 public enum Status
 {

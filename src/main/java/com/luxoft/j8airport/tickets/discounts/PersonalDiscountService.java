@@ -1,7 +1,7 @@
 package com.luxoft.j8airport.tickets.discounts;
 
 import com.luxoft.j8airport.domain.Client;
-import com.luxoft.j8airport.clients.Status;
+import com.luxoft.j8airport.domain.Status;
 import com.luxoft.j8airport.tickets.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

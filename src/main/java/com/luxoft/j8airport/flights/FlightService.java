@@ -1,7 +1,7 @@
 package com.luxoft.j8airport.flights;
 
 import com.luxoft.j8airport.domain.Client;
-import com.luxoft.j8airport.clients.Status;
+import com.luxoft.j8airport.domain.Status;
 import com.luxoft.j8airport.domain.Flight;
 import com.luxoft.j8airport.domain.FlightCard;
 import com.luxoft.j8airport.domain.Ticket;

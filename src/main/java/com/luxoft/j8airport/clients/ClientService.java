@@ -1,6 +1,7 @@
 package com.luxoft.j8airport.clients;
 
 import com.luxoft.j8airport.domain.Client;
+import com.luxoft.j8airport.domain.Status;
 
 import java.util.List;
 import java.util.Map;

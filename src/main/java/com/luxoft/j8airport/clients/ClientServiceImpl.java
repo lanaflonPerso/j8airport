@@ -1,6 +1,7 @@
 package com.luxoft.j8airport.clients;
 
 import com.luxoft.j8airport.domain.Client;
+import com.luxoft.j8airport.domain.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

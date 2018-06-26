@@ -2,7 +2,7 @@ package com.luxoft.j8airport.tickets.discounts;
 
 import com.luxoft.j8airport.domain.Client;
 import com.luxoft.j8airport.clients.ClientSupportService;
-import com.luxoft.j8airport.clients.Status;
+import com.luxoft.j8airport.domain.Status;
 import com.luxoft.j8airport.domain.Ticket;
 import com.luxoft.j8airport.tickets.TicketRepository;
 import org.junit.Before;
