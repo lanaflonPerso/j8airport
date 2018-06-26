@@ -1,4 +1,4 @@
-package com.luxoft.j8airport.flights.domain;
+package com.luxoft.j8airport.domain;
 
 import javax.persistence.*;
 import java.time.Duration;

@@ -1,6 +1,4 @@
-package com.luxoft.j8airport.flights.domain;
-
-import com.luxoft.j8airport.tickets.Ticket;
+package com.luxoft.j8airport.domain;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;

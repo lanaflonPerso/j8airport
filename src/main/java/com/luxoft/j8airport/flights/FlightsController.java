@@ -1,10 +1,8 @@
 package com.luxoft.j8airport.flights;
 
-import com.luxoft.j8airport.clients.Client;
 import com.luxoft.j8airport.clients.ClientService;
-import com.luxoft.j8airport.flights.domain.Flight;
-import com.luxoft.j8airport.tickets.Ticket;
-import com.luxoft.j8airport.tickets.TicketService;
+import com.luxoft.j8airport.domain.Flight;
+import com.luxoft.j8airport.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,8 @@
 package com.luxoft.j8airport.clients;
 
 import static  org.junit.Assert.*;
+
+import com.luxoft.j8airport.domain.Client;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,6 @@ public class ClientSupportServiceTests
 
     @Autowired
     private ClientService clientService;
-
-    @Test
-    public void clientsShouldBeGeneratedTest()
-    {
-        List<Client> clients = clientService.findAll();
-
-        assertTrue("--> clientsShouldBeGenerated", clients.size() > 0);
-    }
 
     @Test
     public void generateAndStoreClientTest()

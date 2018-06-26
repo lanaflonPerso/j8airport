@@ -1,4 +1,6 @@
-package com.luxoft.j8airport.clients;
+package com.luxoft.j8airport.domain;
+
+import com.luxoft.j8airport.clients.Status;
 
 import javax.persistence.*;
 import java.util.Objects;

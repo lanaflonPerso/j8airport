@@ -1,10 +1,10 @@
 package com.luxoft.j8airport.flights;
 
-import com.luxoft.j8airport.clients.Client;
+import com.luxoft.j8airport.domain.Client;
 import com.luxoft.j8airport.clients.Status;
-import com.luxoft.j8airport.flights.domain.Flight;
-import com.luxoft.j8airport.flights.domain.FlightCard;
-import com.luxoft.j8airport.tickets.Ticket;
+import com.luxoft.j8airport.domain.Flight;
+import com.luxoft.j8airport.domain.FlightCard;
+import com.luxoft.j8airport.domain.Ticket;
 
 import java.util.List;
 import java.util.Map;

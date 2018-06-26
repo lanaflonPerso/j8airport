@@ -1,7 +1,4 @@
-package com.luxoft.j8airport.tickets;
-
-import com.luxoft.j8airport.clients.Client;
-import com.luxoft.j8airport.flights.domain.Flight;
+package com.luxoft.j8airport.domain;
 
 import javax.persistence.*;
 

@@ -1,16 +1,15 @@
 package com.luxoft.j8airport.tickets;
 
-import com.luxoft.j8airport.clients.Client;
+import com.luxoft.j8airport.domain.Client;
 import com.luxoft.j8airport.clients.ClientService;
+import com.luxoft.j8airport.domain.Ticket;
 import com.luxoft.j8airport.flights.FlightService;
-import com.luxoft.j8airport.flights.domain.Flight;
+import com.luxoft.j8airport.domain.Flight;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

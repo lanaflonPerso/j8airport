@@ -1,8 +1,6 @@
 package com.luxoft.j8airport;
 
-import com.luxoft.j8airport.clients.Client;
 import com.luxoft.j8airport.clients.ClientSupportService;
-import com.luxoft.j8airport.clients.Status;
 import com.luxoft.j8airport.flights.FlightService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
