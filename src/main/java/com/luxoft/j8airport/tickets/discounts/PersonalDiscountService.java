@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonalDiscountService implements DiscountService
 {
-    @Autowired
     private TicketRepository ticketRepository;
 
     @Override
@@ -41,5 +40,11 @@ public class PersonalDiscountService implements DiscountService
         }
 
         return multiplier;
+    }
+
+    @Autowired
+    public void setTicketRepository(TicketRepository ticketRepository)
+    {
+        this.ticketRepository = ticketRepository;
     }
 }
