@@ -22,12 +22,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-/**
- *
- * TODO: generate data for service methods to work
- * TODO: create tests to check the code and tasks
- *
- */
 @Service
 public class FlightServiceImpl implements FlightService
 {

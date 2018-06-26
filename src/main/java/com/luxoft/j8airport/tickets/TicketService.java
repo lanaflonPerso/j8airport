@@ -8,8 +8,18 @@ import java.util.Set;
 
 public interface TicketService
 {
+
     Ticket calculateAndApplyDiscount(Ticket ticket);
 
+    /**
+     *
+     * Creates ticket with personal price.
+     *
+     * @param client
+     * @param flight
+     *
+     * @return
+     */
     Ticket createTicket(Client client, Flight flight);
 
     /**

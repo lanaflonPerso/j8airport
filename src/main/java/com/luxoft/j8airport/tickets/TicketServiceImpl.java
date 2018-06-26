@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * TODO: create tests to check the code and tasks
+ */
 @Service
 public class TicketServiceImpl implements TicketService
 {
