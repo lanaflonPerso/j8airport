@@ -24,12 +24,12 @@ public interface ClientService
      *
      * @return average age of all clients in DB
      */
-    int getAverageAge();
+    double getAverageAge();
 
     /**
      *
      * @return average age of all clients in DB with specified @{@link Status}
      */
-    int getAverageAge(Status status);
+    double getAverageAge(Status status);
 
 }

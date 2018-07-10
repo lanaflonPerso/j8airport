@@ -39,22 +39,24 @@ public class ClientServiceImpl implements ClientService
     }
 
     @Override
-    public int getAverageAge()
+    public double getAverageAge()
     {
         return getAverageAge(clientRepository.findAll());
     }
 
     @Override
-    public int getAverageAge(Status status)
+    public double getAverageAge(Status status)
     {
         return getAverageAge(clientRepository.findByStatus(status));
     }
 
-    private int getAverageAge(List<Client> clients)
+    private double getAverageAge(List<Client> clients)
     {
-        return (int) clients.stream()
+        return clients.stream()
                 .mapToInt(c -> c.getAge())
-                .average().getAsDouble();
+//                .peek(i -> System.out.println(i))
+                .average()
+                .getAsDouble();
     }
 
 

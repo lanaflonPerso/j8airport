@@ -92,4 +92,16 @@ public class ClientSupportServiceTests
                 + ClientSupportService.DEFAULT_CLIENT_NAME_PREFIX, 0, clients.size());
     }
 
+    @Test
+    public void deleteAllTest()
+    {
+        clientSupportService.generateAndStoreClients(Status.PLATINUM, 5);
+
+        clientSupportService.deleteAll();
+
+        List<Client> clients = clientService.findAll();
+
+        assertEquals("all clients should be  deleted", 0, clients.size());
+    }
+
 }

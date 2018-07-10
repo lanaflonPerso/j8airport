@@ -14,6 +14,8 @@ public class ClientSupportService
 {
     public static final String DEFAULT_CLIENT_NAME_PREFIX = "CLONE_";
 
+    public static final int DEFAULT_AGE = 21;
+
     private static int counter = 0;
 
     @Autowired
@@ -25,6 +27,12 @@ public class ClientSupportService
         repository.deleteAllByNameStartsWith(DEFAULT_CLIENT_NAME_PREFIX);
     }
 
+    @Transactional
+    public void deleteAll()
+    {
+        repository.deleteAll();
+    }
+
     public List<Client> generateAndStoreClients(Status status, int count)
     {
         List<Client> clients = new ArrayList<>(count);
@@ -32,7 +40,7 @@ public class ClientSupportService
         for (int i = 0; i < count; i++)
         {
             Client client = generateClient(DEFAULT_CLIENT_NAME_PREFIX + counter++,
-                    21, (i % 2 == 0 ? Client.Gender.MALE : Client.Gender.FEMALE));
+                    DEFAULT_AGE, (i % 2 == 0 ? Client.Gender.MALE : Client.Gender.FEMALE));
 
             client.setStatus(status);
 
