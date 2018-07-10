@@ -12,17 +12,12 @@ import java.util.List;
 @Service
 public class ClientSupportService
 {
-    private static final String DEFAULT_CLIENT_NAME_PREFIX = "CLONE_";
+    public static final String DEFAULT_CLIENT_NAME_PREFIX = "CLONE_";
 
     private static int counter = 0;
 
     @Autowired
     private ClientRepository repository;
-
-    public void generateAndStoreClients()
-    {
-        repository.save(generateClient("Oleg", 34, Client.Gender.MALE));
-    }
 
     @Transactional
     public void deleteAllGeneratedClients()
