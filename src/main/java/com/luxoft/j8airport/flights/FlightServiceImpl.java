@@ -158,6 +158,11 @@ public class FlightServiceImpl implements FlightService
     @Override
     public void loadFlights()
     {
+        if (waitingForClients.size() > 1)
+        {
+            return;
+        }
+
         Airport amster = new Airport();
         amster.setCountry("Netherlands");
         amster.setCity("Amsterdam");

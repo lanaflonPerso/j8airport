@@ -24,7 +24,7 @@ public interface TicketService
 
     /**
      *
-     * @return average amount of money that client spend
+     * @return average amount of money that client spend on one ticket
      */
     Double getAverageMoneySpent();
 
@@ -41,5 +41,7 @@ public interface TicketService
      * @return all clients that have bought more then @flightLimit flights
      */
     Set<Client> getAllClientsAbove(int flightLimit);
+
+    void setRepository(TicketRepository repository);
 
 }

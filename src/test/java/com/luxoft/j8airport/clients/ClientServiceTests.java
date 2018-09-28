@@ -140,4 +140,19 @@ public class ClientServiceTests
 
         assertEquals(expectedAge, actual, 0);
     }
+
+    @Test
+    public void getAverageAgeForStatusTest()
+    {
+        int plusAge = 34;
+        clientSupportService.generateAndStoreClient("Ivan", plusAge, Status.PLATINUM);
+
+        double expectedAge = (ClientSupportService.DEFAULT_AGE * PLATINUM_COUNT + plusAge)
+                / (PLATINUM_COUNT + 1.0);
+
+        double actual = clientService.getAverageAge(Status.PLATINUM);
+
+        assertEquals(expectedAge, actual, 0);
+    }
+
 }

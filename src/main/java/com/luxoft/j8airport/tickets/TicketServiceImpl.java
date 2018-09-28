@@ -11,16 +11,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * TODO: create tests to check the code and tasks
- */
 @Service
 public class TicketServiceImpl implements TicketService
 {
     @Autowired
     private DiscountService discountService;
 
-    @Autowired
     private TicketRepository repository;
 
     @Override
@@ -98,5 +94,9 @@ public class TicketServiceImpl implements TicketService
                 .collect(Collectors.groupingBy(t -> t.getClient(), Collectors.counting()));
     }
 
-
+    @Autowired
+    public void setRepository(TicketRepository repository)
+    {
+        this.repository = repository;
+    }
 }
