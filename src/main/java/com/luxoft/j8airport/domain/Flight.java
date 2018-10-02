@@ -46,12 +46,7 @@ public class Flight
     {
         state = State.BOARDING;
 
-        while (true)
-        {
-            // TODO wait for at least 1 real client
-            System.out.println("wait for at least 1 real client");
-            return this;
-        }
+         return this;
     }
 
     public void takeOff()

@@ -3,6 +3,7 @@ package com.luxoft.j8airport;
 import com.luxoft.j8airport.clients.ClientServiceTests;
 import com.luxoft.j8airport.clients.ClientSupportServiceTests;
 import com.luxoft.j8airport.flights.FlightsServiceTests;
+import com.luxoft.j8airport.flights.TimezoneUtils;
 import com.luxoft.j8airport.tickets.TicketServiceTests;
 import com.luxoft.j8airport.tickets.discounts.PersonalDiscountServiceTests;
 import org.junit.runner.RunWith;
@@ -14,8 +15,8 @@ import org.junit.runners.Suite;
 		ClientSupportServiceTests.class,
 		FlightsServiceTests.class,
 		TicketServiceTests.class,
-		PersonalDiscountServiceTests.class
-
+		PersonalDiscountServiceTests.class,
+		TimezoneUtils.class
 })
 public class J8airportApplicationTests {
 

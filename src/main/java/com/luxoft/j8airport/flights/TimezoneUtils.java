@@ -13,7 +13,7 @@ public class TimezoneUtils
     /**
      * Returns all time zones for Europe
      */
-    public List<String> getAllEuropeTimeZones()
+    public static List<String> getAllEuropeTimeZones()
     {
         return null;
     }
@@ -27,7 +27,7 @@ public class TimezoneUtils
      *
      *
      */
-    public List<String> getTimeZonesStartedWith(String filter)
+    public static List<String> getTimeZonesStartedWith(String filter)
     {
         return null;
     }
@@ -42,9 +42,11 @@ public class TimezoneUtils
      * @param zoneId zone id of target date time
      * @return
      */
-    public ZonedDateTime datePlusDuration(ZonedDateTime date, Duration durationInMinutes, String zoneId)
+    public static ZonedDateTime datePlusDuration(ZonedDateTime date, Duration durationInMinutes, String zoneId)
     {
-        return null;
+        return ZonedDateTime.ofInstant(
+                date.plusMinutes(durationInMinutes.toMinutes()).toInstant(),
+                ZoneId.of(zoneId));
     }
 
 
@@ -54,6 +56,7 @@ public class TimezoneUtils
         ZoneId.getAvailableZoneIds()
                 .stream()
                 .filter(s -> s.startsWith("Europe"))
+
                 .collect(Collectors
                         .toMap(s -> s,
                                 s -> ZonedDateTime.now(ZoneId.of(s))

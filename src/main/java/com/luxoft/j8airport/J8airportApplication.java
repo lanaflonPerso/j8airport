@@ -8,18 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SpringBootApplication
 public class J8airportApplication
 {
     public static void main(String[] args)
     {
         SpringApplication.run(J8airportApplication.class, args);
-
-        List<String> data = new ArrayList<>();
-
 
     }
 

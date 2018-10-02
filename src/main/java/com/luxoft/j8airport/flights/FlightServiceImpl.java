@@ -139,11 +139,11 @@ public class FlightServiceImpl implements FlightService
                 .withMinute(0)
                 .withSecond(0);
 
-        ZonedDateTime arrive = ZonedDateTime.ofInstant(
-
-                    departure.plusMinutes(flight.getFlightCard().getFlightTimeObj().toMinutes()).toInstant(),
-                    ZoneId.of(flight.getFlightCard().getTo().getZoneId())
-        );
+        ZonedDateTime arrive =
+                TimezoneUtils.datePlusDuration(
+                    departure,
+                    flight.getFlightCard().getFlightTimeObj(),
+                    flight.getFlightCard().getTo().getZoneId());
 
         flight.setDeparture(departure);
         flight.setArrive(arrive);
