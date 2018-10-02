@@ -15,7 +15,7 @@ public class TimezoneUtils
      */
     public static List<String> getAllEuropeTimeZones()
     {
-        return null;
+        return getTimeZonesStartedWith("Europe");
     }
 
     /**
@@ -29,7 +29,10 @@ public class TimezoneUtils
      */
     public static List<String> getTimeZonesStartedWith(String filter)
     {
-        return null;
+        return ZoneId.getAvailableZoneIds()
+                .stream()
+                .filter(s -> s.startsWith(filter))
+                .collect(Collectors.toList());
     }
 
 
@@ -49,14 +52,24 @@ public class TimezoneUtils
                 ZoneId.of(zoneId));
     }
 
-
-
-    public static void main(String[] args)
+    /**
+     * Idea of this method to look through all ZoneIds with current localized time.
+     *
+     * Get all available ZoneIds according to provided filter and
+     * returns a list of localized time for every timezone.
+     *
+     * Records should be sorted from A to Z.
+     *
+     * Format example: Europe/Amsterdam : 9:22:16 AM
+     * Use: DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM))
+     *
+     *
+     * @param filter zoneId should start with this filter
+     */
+    public static List<String> sortedZoneIdToTime(String filter)
     {
-        ZoneId.getAvailableZoneIds()
+        return TimezoneUtils.getTimeZonesStartedWith(filter)
                 .stream()
-                .filter(s -> s.startsWith("Europe"))
-
                 .collect(Collectors
                         .toMap(s -> s,
                                 s -> ZonedDateTime.now(ZoneId.of(s))
@@ -65,6 +78,12 @@ public class TimezoneUtils
                 .stream()
                 .map(e -> e.getKey() + " : " + e.getValue())
                 .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public static void main(String[] args)
+    {
+        TimezoneUtils.sortedZoneIdToTime("Europe")
                 .forEach(System.out::println);
     }
 }

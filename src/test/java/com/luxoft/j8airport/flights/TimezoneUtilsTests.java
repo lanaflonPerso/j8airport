@@ -3,11 +3,11 @@ package com.luxoft.j8airport.flights;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.sql.Time;
 import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -101,5 +101,16 @@ public class TimezoneUtilsTests
                 .datePlusDuration(source, Duration.ofMinutes(60),"Europe/Athens");
 
         assertEquals("--> time should be equal because Athens +1 to Amsterdam", source.getHour() + 2, target.getHour());
+    }
+
+    @Test
+    public void sortedZoneIdToTimeTest()
+    {
+        String expected = "Europe/Amsterdam : " + ZonedDateTime.now(ZoneId.of("Europe/Amsterdam"))
+                .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM));
+
+        String actual = TimezoneUtils.sortedZoneIdToTime("Europe").get(0);
+
+        assertEquals(expected, actual);
     }
 }
